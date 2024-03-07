@@ -97,6 +97,9 @@
   display: block;
 
 }
+.price{
+   display: inline;
+}
 
 @media (max-width: 800px) {
   body {
