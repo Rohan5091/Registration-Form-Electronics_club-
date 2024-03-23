@@ -4,9 +4,9 @@
   box-sizing: border-box;
 }
 
-.regbody {
+body {
   background-color: #ffebeb;
-  background-image: url("./website/main-photo/Background.jpeg");
+  background-image: url("./website/main-photo/background.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import qr from "./website/main-photo/qr.jpg";
+import qr from "./website/main-photo/qr.png";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -37,6 +37,7 @@ function RegistrationForm() {
     branch: "",
     monumber: "",
     payment: "",
+    reffered_by:""
   });
   function handleEvents(e) {
     if (e.target.checked) {
@@ -48,21 +49,21 @@ function RegistrationForm() {
   function findPrise(array) {
     setPrice(0);
     if (isChecked1) {
-      if (array.length == 1) {
+      if (array.length === 1) {
         setPrice(100);
-      } else if (array.length == 2) {
+      } else if (array.length === 2) {
         setPrice(180);
-      } else if (array.length == 3) {
+      } else if (array.length === 3) {
         setPrice(250);
       } else {
         setPrice(0);
       }
     } else {
-      if (array.length == 1) {
+      if (array.length === 1) {
         setPrice(250);
-      } else if (array.length == 2) {
+      } else if (array.length === 2) {
         setPrice(450);
-      } else if (array.length == 3) {
+      } else if (array.length === 3) {
         setPrice(600);
       } else {
         setPrice(0);
@@ -73,12 +74,6 @@ function RegistrationForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     let updatedValue = value;
-    // if (["tLEnrollmentno", "p2Enroll", "p3Enroll", "p4Enroll"].includes(name)) {
-    //     if (!value.match(regex)) {
-    //         console.log("Incorrect Enrollment No");
-    //         updatedValue = ""; // Reset the value if it doesn't match the regex
-    //     }
-    // }
 
     setFormData((prevState) => ({ ...prevState, [name]: updatedValue }));
   };
@@ -141,7 +136,7 @@ function RegistrationForm() {
       {openForm && (
         <>
           <div className="container registration-form">
-            <h2>Electronics Club Registration</h2>
+            <h2>Roboarena 2.0 Registration</h2>
             <form ref={formRef} onSubmit={handleSubmit} name="google-sheet">
               <div className="form-group">
                 <label>Name:</label>
@@ -241,10 +236,10 @@ function RegistrationForm() {
               <div className="form-group">
                 <div>
                   <hr />
-                  <h4>
-                    If you want to participate as a team or you want to
-                    participate indivisualy.
-                  </h4>
+                  <h5>
+                    Select weather you want to participate as a team or you want to
+                    participate individually :
+                  </h5>
                   <label>
                     <input
                       className="participation"
@@ -252,7 +247,7 @@ function RegistrationForm() {
                       checked={isChecked1}
                       onChange={() => handleCheckboxChange(1)}
                     />
-                    {"  "} Individual Participantion
+                    {"  "} Individual Participation
                   </label>
                   <br />
                   <label>
@@ -262,13 +257,13 @@ function RegistrationForm() {
                       checked={isChecked2}
                       onChange={() => handleCheckboxChange(2)}
                     />
-                    {"  "} Team Participantion
+                    {"  "} Team Participation
                   </label>
                   <hr />
                 </div>
               </div>
               <div className="form-group">
-                <h4>Select the Events do you want to participate.</h4> <br />
+                <h5>Select the Events you want to participate in :</h5> <br />
                 <input
                   type="checkbox"
                   id="Event1"
@@ -276,7 +271,7 @@ function RegistrationForm() {
                   value="Robotron"
                   onChange={handleEvents}
                 />
-                <label htmlFor="Event1">{"  "} <h5>1. Robotron</h5></label>
+                <label htmlFor="Event1">{"  "}  1.  Robotron</label>
                 <br />
                 <input
                   type="checkbox"
@@ -285,7 +280,7 @@ function RegistrationForm() {
                   value="Robosumo"
                   onChange={handleEvents}
                 />
-                <label htmlFor="Event2"> {"  "}<h5>2. Robosumo</h5></label>
+                <label htmlFor="Event2"> {"  "} 2.  Robosumo</label>
                 <br />
                 <input
                   type="checkbox"
@@ -294,7 +289,7 @@ function RegistrationForm() {
                   value="Robosoccer"
                   onChange={handleEvents}
                 />
-                <label htmlFor="Event3"> {"  "} <h5>3. Robosoccer</h5></label>
+                <label htmlFor="Event3"> {"  "} 3.  Robosoccer</label>
                 <br />
                 <hr />
               </div>
@@ -421,12 +416,12 @@ function RegistrationForm() {
               )}
               <div className="form-group imgdiv">
                 <label>
-                  Scan QR and pay <h1 className="price">{price}</h1> Rs.
+                  Scan QR and pay Rs. <h1 className="price">{price}</h1>  
                 </label>
                 <img className="qrImage" src={qr} alt="qr" />
               </div>
               <div className="form-group">
-                <label>Submit payment screenshort :</label>
+                <label>Submit payment screenshot :</label>
                 <input
                   required
                   type="file"
@@ -435,8 +430,19 @@ function RegistrationForm() {
                   onChange={handleImageUpload}
                 ></input>
               </div>
+              <div className="form-group">
+                    <label>Reffered by:</label>
+                    <input
+                      required
+                      type="text"
+                      name="reffered_by"
+                      className="form-control"
+                      value={formData.reffered_by}
+                      onChange={handleChange}
+                    ></input>
+                  </div>
               <button
-                disabled={!imageUploaded || price==0}
+                disabled={!imageUploaded || price===0}
                 type="submit"
                 className="btn btn-primary"
               >
@@ -451,13 +457,15 @@ function RegistrationForm() {
           <div className="thank-you-container">
             <h1>Thank You for Submitting Your Data</h1>
             <p>Your registration has been successfully submitted.</p>
-            <p>We appreciate your interest in our college club event.</p>
+            <p>We appreciate your interest in our Electronics club event.</p>
+            <p>Make Sure to Join below Whatsapp groups for further details of Event.. </p>
             {events.map((event, index) => {
               if (event === "Robotron") {
                 return (
                   <a
                     key={index}
                     href="https://chat.whatsapp.com/GsxXeVsYZQMAYlsjO1pgf6"
+                    target="_shruti"
                   >
                     {" "}
                     Join our {event} event's Whatsapp group <br />
@@ -468,6 +476,7 @@ function RegistrationForm() {
                   <a
                     key={index}
                     href="https://chat.whatsapp.com/HxnaGwPlEIyGkYt3w8Mh4m"
+                    target="_shruti"
                   >
                     Join our {event} event's Whatsapp group <br />
                   </a>
@@ -477,6 +486,7 @@ function RegistrationForm() {
                   <a
                     key={index}
                     href="https://chat.whatsapp.com/FRMQUtBsuJNAAPCmVLT0zM"
+                    target="_shruti"
                   >
                     {" "}
                     Join our {event} event's Whatsapp group

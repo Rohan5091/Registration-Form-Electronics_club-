@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "registration-electronicclubmits",
     "public": "build",
     "ignore": [
       "firebase.json",
